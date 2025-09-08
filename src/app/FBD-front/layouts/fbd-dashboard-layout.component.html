@@ -1,0 +1,39 @@
+<div class="directory-container">
+  <div class="header">
+    <h2>Hi Stephen 👋</h2>
+    <h1>Who are you looking for?</h1>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Name or Job Title" />
+      <select>
+        <option>All Teams</option>
+        <!-- más opciones -->
+      </select>
+      <button><span>Search</span> 🔍</button>
+    </div>
+  </div>
+
+  <div class="sort-bar">
+    <label for="sort">Sort by</label>
+    <select id="sort">
+      <option>Recently joined</option>
+      <!-- más opciones -->
+    </select>
+
+    <div class="view-toggle">
+      🔲 🔳
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" *ngFor="let user of users">
+      <div class="avatar">
+        <img [src]="user.avatar" alt="{{ user.name }}" />
+        <span class="status" [class.online]="user.online"></span>
+      </div>
+      <h3>{{ user.name }}</h3>
+      <p class="title">{{ user.role }}</p>
+      <p class="details">{{ user.team }} — {{ user.location }}</p>
+    </div>
+  </div>
+</div>
