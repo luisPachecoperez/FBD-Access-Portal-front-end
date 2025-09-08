@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.login-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #000;
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
+
+.login-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(100%);
+  transition: transform 0.3s ease;
+}
+
+.login-right {
+  flex: 1;
+  width: 50%;
+  position: relative;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  height: 100%;
+  overflow-y: auto;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.logo {
+  width: 220px;
+  margin-bottom: 3rem;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.google-button {
+  background-color: #d63a63;
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(214, 58, 99, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.google-button:hover {
+  background-color: #c12f56;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(214, 58, 99, 0.4);
+}
+
+.google-button:active {
+  transform: translateY(0);
+}
+
+.google-button:hover {
+  background-color: #c72b55;
+}
+
+
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+/* ==== LEFT SIDE ==== */
+.login-left {
+  flex: 1;
+  position: relative;
+}
+
+.login-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+/* ==== RIGHT SIDE ==== */
+.login-right {
+  flex: 1;
+  position: relative;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.logo {
+  width: 200px;
+  margin-bottom: 2rem;
+  z-index: 1;
+}
+
+.google-button {
+  background-color: #d63a63;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+
+/* ==== SHAPES ==== */
+.shape {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+/* 🎀 Triángulo rosado redondeado (como en la imagen, sobre el portátil) */
+.shape-petal-pink {
+  background-color: #ec2f8c;
+  bottom: 0px;
+  right: 11px;
+  left: 30px;
+  width: 180px;
+  height: 140px;
+
+  clip-path: path("M0,140 Q80,-17 180,140 Z");
+
+}
+
+/* 🔹 Azul en login-right */
+.login-right .shape-blue-left {
+  position: absolute;
+
+  background-color: #00a7e1;
+  top: 30px;
+  left: -20px;
+  width: 180px;
+  height: 140px;
+  transform: rotate(90deg);
+  clip-path: path("M0,140 Q90,-40 180,140 Z");
+  z-index: 5;
+  opacity: 0.8;
+}
+
+/* 🔮 Morado arriba derecha */
+.shape-purple-right {
+  background-color: #bb85e4;
+  top: 10px;
+  right: 10px;
+  width: 180px;
+  height: 140px;
+  transform: rotate(180deg);
+  background-color: #530951;
+  clip-path: path("M0,140 Q90,-40 180,140 Z");
+  position: absolute;
+}
+
+/* 🔸 Verde abajo derecha */
+.shape-green-right {
+  background-color: #0e8870;
+  right: 10px;
+  left: 200px;
+  bottom: 0px;
+   width: 180px;
+  height: 140px;
+  transform: rotate(360deg) ;
+  clip-path: path("M0,140 Q90,-40 180,140 Z");
+}
+
+
+
