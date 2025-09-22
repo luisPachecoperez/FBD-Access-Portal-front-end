@@ -1,0 +1,114 @@
+.cultivarte-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 80px; /* más espacio para el texto */
+  background: #fff;
+  height: 120px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 0;
+}
+
+/* ---- textos ---- */
+.title {
+  font-size: 2.2rem;  /* Aumentado de 1.6rem */
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;  /* Añadido margen inferior */
+  color: #333;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.1rem;  /* Aumentado de 0.9rem */
+  margin: 0.2rem 0;  /* Ajuste de márgenes */
+  color: #666;
+  line-height: 1.3;
+}
+
+/* ---- logo ---- */
+.logo {
+  height: 130px;  /* Aumentado de 70px a 90px */
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- decoraciones ---- */
+.decor {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+/* pétalo rojo izquierdo (grande y triangular) */
+/* pétalo rojo izquierdo (más alargado y menos ancho) */
+.decor-red-left {
+  top: 0;
+  left: 0;
+  width: 120px;       /* más delgado */
+  height: 100%;       /* cubre todo el alto */
+  background: red;
+  clip-path: path("M0,0 Q110,60 0,160 Z"); /* más estilizado y vertical */
+}
+
+
+/* pétalo rojo derecho */
+.decor-red-right {
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 100%;
+  background: red;
+  clip-path: ellipse(60% 50% at 100% 50%);
+}
+
+/* pétalo morado superior invertido */
+.decor-purple-top {
+  top: 0;
+  right: 150px;          /* ajusta la posición horizontal */
+  width: 180px;
+  height: 120px;
+  background: purple;
+
+  /* curva apuntando hacia abajo */
+  clip-path: path("M0,0 Q90,140 180,0 Z");
+
+  transform: rotate(180deg); /* invertido hacia abajo */
+}
+
+
+/* pétalo amarillo */
+.decor-yellow {
+  position: absolute;
+  top: -60px;     /* lo subimos más */
+  left: 1000px;    /* lo corremos más a la izquierda */
+  width: 260px;
+  height: 90px;
+  background: #fdd835; /* amarillo Google */
+  clip-path: path("M0,160 Q130,-50 260,160 Z");
+  z-index: 0; /* por detrás */
+  opacity: 0.9;
+}
+
+/* pétalo azul */
+.decor-blue {
+  bottom: -20px;
+  left: 45%;
+  width: 140px;
+  height: 120px;
+  background: #4bb3e6;
+  clip-path: path("M0,120 Q70,-20 140,120 Z");
+  transform: translateX(-50%);
+}
+
+/* pétalo rosado */
+.decor-pink {
+  bottom: -25px;
+  left: 25%;
+  width: 160px;
+  height: 120px;
+  background: #ec2f8c;
+  clip-path: path("M0,120 Q80,-20 160,120 Z");
+}

@@ -1,5 +1,5 @@
 // src/app/services/auth.service.ts
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -24,29 +24,24 @@ interface GoogleJwtPayload {
   jti: string;
 }
 
-
-
-
-declare const google: any; // para revoke/cancel opcional
+// para revoke/cancel opcional
+declare const google: any;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   // Señal para el usuario (tu template usa user(); perfecto)
   private userSignal = signal<Usuario | null>(null);
   public user = this.userSignal.asReadonly();
-
-  // No lo dejes hardcodeado luego; lee de env o config.
-  private apiUrl = 'http://localhost:4000/graphql';
-  //private apiUrl = 'http://localhost:8083/graphql';
-
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private cookieService = inject(CookieService);
+  // Use the baseUrl from environment configuration
+  private apiUrl = `${environment.baseUrl}/graphql`;
   private secret = environment.COOKIE_SECRET;
   private userCookieName = environment.USER_COOKIE_NAME;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private cookieService: CookieService
-    ) {}
+
+
   /** Estado simple de UI (no consulta cookie httpOnly) */
   public isAuthenticated(): boolean {
       let auth:boolean=false;
@@ -124,11 +119,27 @@ export class AuthService {
   googleLogin(idToken: string) {
 
     const mutation = `
-      mutation GoogleLogin($token: String!) {
-        googleLogin(token: $token) {
+      mutation LoginWithGoogle($token: String!) {
+        googleLogin(tokenGoogle: $token) {
           success
           message
-          user { id email nombre photoUrl }
+          persona {
+            id_persona
+            email
+            nombre
+            photoUrl
+            roles
+            apps {
+              id_app
+              app_name
+              url
+            }
+          }
+          menu {
+            id_menu
+            nombre
+            ruta
+          }
         }
       }
     `;
@@ -148,7 +159,7 @@ export class AuthService {
       tap(res => {
         const payload = res?.data?.googleLogin;
         if (payload?.success) {
-          const u = payload.user as Usuario | undefined;
+          const u = payload.persona as Usuario | undefined;
           if (u) this.userSignal.set(u);
         } else {
           // Si falla, limpia el estado local
@@ -186,4 +197,5 @@ export class AuthService {
 
     this.router.navigate(['/login']);
   }
+
 }

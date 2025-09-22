@@ -1,0 +1,24 @@
+<div class="apps-container">
+  <h2>Mis Aplicaciones</h2>
+  <div class="apps-grid">
+    <!-- Cultivarte -->
+    <div
+      class="app-card"
+      [routerLink]="['/embed']"
+      [queryParams]="{ url: 'http://localhost:59176/calendar' }"
+    >
+      <img src="assets/images/logo-cultivarte.png" alt="Cultivarte">
+      <span>Cultivarte</span>
+    </div>
+
+    <!-- Aflora -->
+    <div
+      class="app-card"
+      [routerLink]="['/embed']"
+      [queryParams]="{ url: 'http://localhost:63381/aflora' }"
+    >
+      <img src="assets/images/logo-aflora.png" alt="Aflora">
+      <span>Aflora</span>
+    </div>
+  </div>
+</div>
