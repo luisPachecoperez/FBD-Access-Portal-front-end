@@ -1,0 +1,31 @@
+<font-navbar></font-navbar>
+<div class="page-container">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>Menú</h3>
+    </div>
+    <ul class="sidebar-menu">
+      @for (item of menuResource.value() || [] ; track $index) {
+        @if(item.ruta !== '/aflora'){
+          <li><a href="{{ item.ruta }}"><i class="fas fa-chart-line"></i> {{ item.nombre }}</a></li>
+        }
+      }
+      <li><a (click)="logout()" class="active"><i class="fas fa-home"></i> Salir</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="embed-container">
+      @if (appUrl) {
+        <iframe
+          [src]="appUrl | safeUrl"
+          frameborder="0"
+          width="100%"
+          height="100%"
+          style="border: none;"
+        ></iframe>
+      } @else {
+        <p>Cargando aplicación...</p>
+      }
+    </div>
+  </div>
+</div>

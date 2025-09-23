@@ -1,6 +1,3 @@
-
-
-
 <div class="login-container">
   <div class="login-left">
     <img src="/assets/images/login-image.png" alt="Educadoras usando laptop" />
@@ -14,13 +11,37 @@
 
     <img src="/assets/images/logo-cultivarte.png" alt="Cultivarte Logo" class="logo" />
 
-    <button class="google-button">Iniciar sesión con google</button>
+    <!-- AQUÍ renderiza Google Identity Services -->
+    <div #googleBtn></div>
+
+    <!-- Estados del login -->
+    <div class="login-status">
+      <!-- Cargando -->
+      @if (loginResource.isLoading()) {
+        <div class="loading">
+          🔄 Conectando con el servidor...
+        </div>
+      }
+
+      @if (loginResource.error()) {
+        <!-- Error -->
+        <div class="error">
+          ⚠️ Error al iniciar sesión. Inténtalo de nuevo.
+        </div>
+      }
+
+      <!-- Éxito -->
+      @if (loginResource.value()?.data?.googleLogin?.success) {
+        <div class="success">
+          ✅ Bienvenido {{ loginResource.value()?.data?.googleLogin?.persona?.nombre || 'Usuario' }}
+        </div>
+      }
+    </div>
   </div>
 </div>
 
+<!-- Figura rosada como pétalo -->
+<div class="rounded-petal"></div>
 
-  <!-- Figura rosada como pétalo -->
-  <div class="rounded-petal"></div>
-
-  <!-- Imagen del computador -->
-  <img src="assets/images/computer.png" alt="Computador" class="computer-image" />
+<!-- Imagen del computador -->
+<img src="assets/images/computer.png" alt="Computador" class="computer-image" />

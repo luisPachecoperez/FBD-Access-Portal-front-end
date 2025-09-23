@@ -57,12 +57,16 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "FBD-Access-Portal:build"
+          },
           "configurations": {
             "production": {
               "buildTarget": "FBD-Access-Portal:build:production"
             },
             "development": {
-              "buildTarget": "FBD-Access-Portal:build:development"
+              "buildTarget": "FBD-Access-Portal:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

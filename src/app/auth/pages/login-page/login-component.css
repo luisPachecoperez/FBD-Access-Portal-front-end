@@ -213,5 +213,21 @@
   clip-path: path("M0,140 Q90,-40 180,140 Z");
 }
 
+.login-status {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
 
+.login-status .loading {
+  color: #007bff;
+}
 
+.login-status .error {
+  color: #dc3545;
+}
+
+.login-status .success {
+  color: #28a745;
+  font-weight: bold;
+}
