@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
 import { AuthLayoutComponent } from "./layout/auth-layout/auth-layout.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
-
+import { NotAuthenticatedGuard } from "./guards/not-authenticated.guard";
 export const authRoutes:Routes = [
   {
     path:'',
@@ -9,7 +9,8 @@ export const authRoutes:Routes = [
     children:[
       {
         path:'login',
-        component:LoginPageComponent
+        component:LoginPageComponent,
+        canActivate: [NotAuthenticatedGuard]
       },
       {
         path:'**',

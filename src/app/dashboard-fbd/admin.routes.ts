@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { DashboardFbdLayoutComponent } from './layouts/dashboard-fbd-layout.component';
 import { AppEmbedComponent } from "./pages/app-embed/app-embed.component";
+import { NotAuthenticatedGuard } from "../auth/guards/not-authenticated.guard";
 export const adminRoutes: Routes = [
   {
     path: '',

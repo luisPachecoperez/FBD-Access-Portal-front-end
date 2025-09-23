@@ -112,6 +112,20 @@ export class AuthService {
   }
 
   /**
+   * Cierra la sesión del usuario, eliminando todas las cookies y redirigiendo al login
+   */
+  public logout(): void {
+    // Eliminar la cookie de usuario
+    this.cookieService.deleteCookie(this.userCookieName);
+    this.cookieService.deleteCookie('session_auth');
+    // Limpiar cualquier otro dato de sesión que puedas tener
+    this.userSignal.set(null);
+
+    // Redirigir al login
+    this.router.navigate(['/auth/login']);
+  }
+
+  /**
    * 1) Envía el ID token de Google al backend (mutación googleLogin)
    * 2) El backend valida y (recomendado) emite cookie httpOnly de sesión
    * 3) Opcionalmente recibes datos del usuario y los guardas para la UI
@@ -134,11 +148,6 @@ export class AuthService {
               app_name
               url
             }
-          }
-          menu {
-            id_menu
-            nombre
-            ruta
           }
         }
       }
@@ -168,7 +177,7 @@ export class AuthService {
       })
     );
   }
-
+/*
   logout(email?: string) {
     this.clear();
     //borrar cookie
@@ -197,5 +206,5 @@ export class AuthService {
 
     this.router.navigate(['/login']);
   }
-
+*/
 }
