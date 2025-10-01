@@ -58,46 +58,102 @@
 }
 
 .logo {
-  width: 220px;
+  width: 40%;
   margin-bottom: 3rem;
   z-index: 2;
   transition: transform 0.3s ease;
+  max-width: 80%;
+  height: auto;
 }
 
 .logo:hover {
   transform: scale(1.05);
 }
 
-.google-button {
-  background-color: #d63a63;
-  color: white;
-  border: none;
-  padding: 1rem 2.5rem;
-  border-radius: 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
+#googleBtn {
+  width: 100%;
+  max-width: 300px;
+  margin: 1rem 0;
   z-index: 2;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(214, 58, 99, 0.3);
-  position: relative;
-  overflow: hidden;
 }
 
-.google-button:hover {
-  background-color: #c12f56;
+#googleBtn iframe {
+  width: 100% !important;
+  height: 50px !important;
+  border: none !important;
+  border-radius: 25px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+#googleBtn iframe:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(214, 58, 99, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
 }
 
-.google-button:active {
-  transform: translateY(0);
+.google-custom-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+  border-radius: 25px;
+  padding: 10px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.google-button:hover {
-  background-color: #c72b55;
+.google-custom-button:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
+.google-custom-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+}
+
+.login-status {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.login-status .loading {
+  color: #007bff;
+}
+
+.login-status .error {
+  color: #dc3545;
+}
+
+.login-status .success {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.loading {
+  color: #d63a63;
+  font-weight: 500;
+  margin-top: 1rem;
+  text-align: center;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
 
 .login-container {
   display: flex;
@@ -131,25 +187,6 @@
   justify-content: center;
   padding: 2rem;
 }
-
-.logo {
-  width: 200px;
-  margin-bottom: 2rem;
-  z-index: 1;
-}
-
-.google-button {
-  background-color: #d63a63;
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 2rem;
-  font-size: 1rem;
-  cursor: pointer;
-  z-index: 1;
-  transition: background 0.3s ease;
-}
-
 
 /* ==== SHAPES ==== */
 .shape {
@@ -211,23 +248,4 @@
   height: 140px;
   transform: rotate(360deg) ;
   clip-path: path("M0,140 Q90,-40 180,140 Z");
-}
-
-.login-status {
-  margin-top: 1rem;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.login-status .loading {
-  color: #007bff;
-}
-
-.login-status .error {
-  color: #dc3545;
-}
-
-.login-status .success {
-  color: #28a745;
-  font-weight: bold;
 }
