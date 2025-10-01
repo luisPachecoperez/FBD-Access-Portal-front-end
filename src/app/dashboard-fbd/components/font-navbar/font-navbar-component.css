@@ -11,6 +11,7 @@
   z-index: 0;
 }
 
+
 /* ---- textos ---- */
 .title {
   font-size: 2.2rem;  /* Aumentado de 1.6rem */
@@ -111,4 +112,49 @@
   height: 120px;
   background: #ec2f8c;
   clip-path: path("M0,120 Q80,-20 160,120 Z");
+}
+
+
+/* Estilos para el botón de cierre de sesión */
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  color: #666;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logout-button:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.logout-button i {
+  font-size: 1rem;
+}
+
+/* Asegurarse de que el contenedor derecho esté alineado correctamente */
+.cultivarte-header__right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Ajustar el logo para que esté centrado sobre el botón */
+.logo {
+  margin-bottom: 8px;
 }

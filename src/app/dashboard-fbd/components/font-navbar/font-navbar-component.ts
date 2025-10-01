@@ -9,4 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./font-navbar-component.css']
 })
 export class FontNavbarComponent {
+  logout() {
+    console.log('Cerrar sesión');
+  }
 }
