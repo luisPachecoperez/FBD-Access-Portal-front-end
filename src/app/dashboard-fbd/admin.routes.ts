@@ -1,8 +1,6 @@
-import { Routes } from "@angular/router";
-import { HomePageComponent } from "./pages/home-page/home-page.component";
+import { Routes } from '@angular/router';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 import { DashboardFbdLayoutComponent } from './layouts/dashboard-fbd-layout.component';
-import { AppEmbedComponent } from "./pages/app-embed/app-embed.component";
-import { NotAuthenticatedGuard } from "../auth/guards/not-authenticated.guard";
 export const adminRoutes: Routes = [
   {
     path: '',
@@ -11,19 +9,19 @@ export const adminRoutes: Routes = [
       {
         path: '',
         redirectTo: 'home',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'home',
-        component: HomePageComponent
+        component: HomePageComponent,
       },
 
       {
         path: '**',
-        redirectTo: 'home'
-      }
-    ]
-  }
+        redirectTo: 'home',
+      },
+    ],
+  },
 ];
 
 export default adminRoutes;

@@ -8,7 +8,7 @@ import { SafeUrlPipe } from '../../dashboard-fbd/pipes/safe-url.pipe';
   standalone: true,
   imports: [CommonModule, SafeUrlPipe],
   templateUrl: './app-embed.component.html',
-  styleUrls: ['./app-embed.component.css']
+  styleUrls: ['./app-embed.component.css'],
 })
 export class AppEmbedComponent implements OnInit {
   appUrl: string = '';
@@ -16,8 +16,8 @@ export class AppEmbedComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.appUrl = params['url'] || '';
+    this.route.queryParams.subscribe((params) => {
+      this.appUrl = typeof params['url'] === 'string' ? params['url'] : '';
       console.log('URL cargada:', this.appUrl); // Para depuración
     });
   }

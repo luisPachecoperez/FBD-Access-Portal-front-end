@@ -1,18 +1,27 @@
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
+export interface MenuItem {
+  id_menu: string;
+  nombre: string;
+  ruta: string;
+}
 
-import { inject, Injectable, signal } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { environment } from "../../../environments/environment";
+export interface GetMenuResponse {
+  data?: {
+    getMenu?: MenuItem[];
+  };
+}
+import { environment } from '../../../environments/environment';
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class MenuService {
-
   private apiUrl = `${environment.baseUrl}/graphql`;
   private http = inject(HttpClient);
 
-  getMenu(): Observable<any> {
+  getMenu(): Observable<GetMenuResponse> {
     const query = `
       query GetMenu {
         getMenu {
@@ -24,13 +33,13 @@ export class MenuService {
     `;
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     });
 
-    return this.http.post<any>(
+    return this.http.post<GetMenuResponse>(
       this.apiUrl,
       { query },
-      { headers, withCredentials: true } // importante para que viaje la cookie
+      { headers, withCredentials: true },
     );
   }
 }

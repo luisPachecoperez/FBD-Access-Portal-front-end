@@ -8,25 +8,6 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../environments/environment';
 import { CookieService } from './cookie.service';
 
-interface GoogleJwtPayload {
-  iss: string;
-  nbf: number;
-  aud: string;
-  sub: string;
-  email: string;
-  email_verified: boolean;
-  name: string;
-  picture: string;
-  given_name: string;
-  family_name: string;
-  iat: number;
-  exp: number;
-  jti: string;
-}
-
-// para revoke/cancel opcional
-declare const google: any;
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   // Señal para el usuario (tu template usa user(); perfecto)
@@ -40,71 +21,78 @@ export class AuthService {
   private secret = environment.COOKIE_SECRET;
   private userCookieName = environment.USER_COOKIE_NAME;
 
-
-
   /** Estado simple de UI (no consulta cookie httpOnly) */
   public isAuthenticated(): boolean {
-      let auth:boolean=false;
-      const encrypted :string | null = this.cookieService.getCookie(this.userCookieName);
-      if (!encrypted) {
-        console.warn('❌ No existe cookie de sesión');
-        return auth;
-      }
-
-      try {
-        // 🔓 Descifrar cookie
-        const bytes = CryptoJS.AES.decrypt(encrypted, this.secret);
-        const decoded = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        console.log('✅ Usuario autenticado:', decoded);
-
-        if (!decoded) {
-          console.warn('❌ Cookie vacía o corrupta');
-          return auth ;
-        }
-
-        // ⏳ Verificar expiración
-        const now = Math.floor(Date.now() / 1000);
-        if (decoded.exp && decoded.exp < now) {
-          console.warn('❌ Token expirado');
-          return auth;
-        }
-
-        auth=true;
-        return auth;
-      } catch (err) {
-        console.error('❌ Error al validar cookie:', err);
-        return auth;
-      }
+    let auth: boolean = false;
+    const encrypted: string | null = this.cookieService.getCookie(
+      this.userCookieName,
+    );
+    if (!encrypted) {
+      console.warn('❌ No existe cookie de sesión');
+      return auth;
     }
 
+    try {
+      // 🔓 Descifrar cookie
+      const bytes = CryptoJS.AES.decrypt(encrypted, this.secret);
+      const decodedStr = bytes.toString(CryptoJS.enc.Utf8);
+      const decoded: { exp?: number } = decodedStr
+        ? (JSON.parse(decodedStr) as { exp?: number })
+        : {};
+      console.log('✅ Usuario autenticado:', decoded);
 
-    public getUserUuid(): String {
-      let user_uuid:String="";
-      const encrypted :string | null = this.cookieService.getCookie(this.userCookieName);
-      if (!encrypted) {
-        console.warn('❌ No existe cookie de sesión');
-        return user_uuid;
+      if (!decoded) {
+        console.warn('❌ Cookie vacía o corrupta');
+        return auth;
       }
 
-      try {
-        // 🔓 Descifrar cookie
-        const bytes = CryptoJS.AES.decrypt(encrypted, this.secret);
-        const decoded = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        user_uuid=decoded.user_uuid;
-        console.log('✅ Usuario autenticado:',user_uuid);
-        if (!decoded) {
-          console.warn('❌ Cookie vacía o corrupta');
-          return user_uuid ;
-        }
+      // ⏳ Verificar expiración
+      const now = Math.floor(Date.now() / 1000);
+      if (decoded.exp && decoded.exp < now) {
+        console.warn('❌ Token expirado');
+        return auth;
+      }
+
+      auth = true;
+      return auth;
+    } catch (err) {
+      console.error('❌ Error al validar cookie:', err);
+      return auth;
+    }
+  }
+
+  public getUserUuid(): string {
+    let user_uuid: string = '';
+    const encrypted: string | null = this.cookieService.getCookie(
+      this.userCookieName,
+    );
+    if (!encrypted) {
+      console.warn('❌ No existe cookie de sesión');
       return user_uuid;
-      } catch (err) {
-        console.error('❌ Error al validar cookie:', err);
+    }
+
+    try {
+      // 🔓 Descifrar cookie
+      const bytes = CryptoJS.AES.decrypt(encrypted, this.secret);
+      const decodedStr = bytes.toString(CryptoJS.enc.Utf8);
+      const decoded: { user_uuid?: string } = decodedStr
+        ? (JSON.parse(decodedStr) as { user_uuid?: string })
+        : {};
+      user_uuid = decoded.user_uuid ?? '';
+      console.log('✅ Usuario autenticado:', user_uuid);
+      if (!decoded) {
+        console.warn('❌ Cookie vacía o corrupta');
         return user_uuid;
       }
+      return user_uuid;
+    } catch (err) {
+      console.error('❌ Error al validar cookie:', err);
+      return user_uuid;
     }
-    /**
-     *
-     */
+  }
+  /**
+   *
+   */
 
   /** Limpia estado local */
   clear() {
@@ -122,7 +110,7 @@ export class AuthService {
     this.userSignal.set(null);
 
     // Redirigir al login
-    this.router.navigate(['/auth/login']);
+    void this.router.navigate(['/auth/login']);
   }
 
   /**
@@ -131,7 +119,6 @@ export class AuthService {
    * 3) Opcionalmente recibes datos del usuario y los guardas para la UI
    */
   googleLogin(idToken: string) {
-
     const mutation = `
       mutation LoginWithGoogle($token: String!) {
         googleLogin(tokenGoogle: $token) {
@@ -156,28 +143,35 @@ export class AuthService {
     // Si tu backend **requiere** Authorization: Bearer para esta mutación inicial:
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken}`
+      Authorization: `Bearer ${idToken}`,
     });
 
-    return this.http.post<any>(
-      this.apiUrl,
-      { query: mutation, variables: { token: idToken } },
-      { headers, withCredentials: true } // <- importante para que viaje la cookie httpOnly
-    )
-    .pipe(
-      tap(res => {
-        const payload = res?.data?.googleLogin;
-        if (payload?.success) {
-          const u = payload.persona as Usuario | undefined;
-          if (u) this.userSignal.set(u);
-        } else {
-          // Si falla, limpia el estado local
-          this.clear();
-        }
-      })
-    );
+    return this.http
+      .post<{
+        data?: {
+          googleLogin?: {
+            success?: boolean;
+            persona?: Usuario;
+          };
+        };
+      }>(
+        this.apiUrl,
+        { query: mutation, variables: { token: idToken } },
+        { headers, withCredentials: true },
+      )
+      .pipe(
+        tap((res) => {
+          const payload = res?.data?.googleLogin;
+          if (payload?.success) {
+            const u = payload.persona;
+            if (u) this.userSignal.set(u);
+          } else {
+            this.clear();
+          }
+        }),
+      );
   }
-/*
+  /*
   logout(email?: string) {
     this.clear();
     //borrar cookie

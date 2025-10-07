@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './font-navbar-component.html',
-  styleUrls: ['./font-navbar-component.css']
+  styleUrls: ['./font-navbar-component.css'],
 })
 export class FontNavbarComponent {
   logout() {

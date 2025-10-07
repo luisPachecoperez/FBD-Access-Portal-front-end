@@ -1,0 +1,1 @@
+Directorio de assets para recursos estáticos de la aplicación Angular.

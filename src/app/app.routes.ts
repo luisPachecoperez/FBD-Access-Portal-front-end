@@ -5,25 +5,25 @@ import { AuthGuard } from './auth/guards/auth.guard';
 export const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.routes')
+    loadChildren: () => import('./auth/auth.routes'),
   },
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard-fbd/admin.routes'),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'embed',
     component: AppEmbedComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: '',
     redirectTo: 'dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '**',
     redirectTo: 'auth/login',
-  }
+  },
 ];
